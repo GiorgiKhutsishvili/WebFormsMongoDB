@@ -29,7 +29,9 @@ namespace WebFormsMongoDB
                 {"ProductionYear", txtProductionYear.Text.ToString() }
             };
             collection.InsertOneAsync(document);
-            Response.Redirect("Crud.aspx", true);
+            //Response.Redirect("Crud.aspx", true);
+            Server.Transfer("Crud.aspx", true);
+            
         }
     }
 }
