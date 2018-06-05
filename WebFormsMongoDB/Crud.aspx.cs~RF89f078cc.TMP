@@ -174,52 +174,25 @@ namespace WebFormsMongoDB
         }
 
        
-        //[WebMethod]
-        //public static void DeleteRecord(string id)
-        //{
-        //    try
-        //    {
-        //        var collection = db.GetCollection<BsonDocument>("cars");
-
-        //        var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(id));
-
-        //        collection.DeleteOne(filter);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var message = ex.Message;
-                
-        //    }
-        //}
-
         [WebMethod]
         public static void DeleteRecord(string id)
         {
             try
             {
+                //if (id == null)
+                //{
+                //    Response.Write("id is null");
+                //}
+
+                //var client = new MongoClient();
+                //var db = client.GetDatabase("CarsDB");
                 var collection = db.GetCollection<BsonDocument>("cars");
+
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(id));
 
-
-                //var queryID = Query.EQ("_id", ObjectId.Parse(id));
-                //var entity = collection.FindAsync(queryID);
-
-
-
-
-
-
-                CarsInfo ci = new CarsInfo();
-                ci._id = ObjectId.Parse(id);
-                ci.Car = ci.Car;
-                ci.CarModel = ci.CarModel;
-                ci.ProductionYear = ci.ProductionYear;
-                ci.isDeleted = true;
-                
-                collection.ReplaceOne(filter, ci.ToBsonDocument());
-
+                collection.DeleteOne(filter);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var message = ex.Message;
             }

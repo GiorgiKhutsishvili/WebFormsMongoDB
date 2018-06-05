@@ -14,5 +14,6 @@ namespace WebFormsMongoDB.Models
         public string Car { get; set; }
         public string CarModel { get; set; }
         public string ProductionYear { get; set; }
+        public bool isDeleted { get; set; }
     }
 }

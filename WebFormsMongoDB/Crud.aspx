@@ -6,6 +6,50 @@
 <head runat="server">
     <title></title>
     <script src="scripts/jquery-3.3.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            //$(".delete").click(function () {
+            //    var source = this;
+            //    $.ajax({
+            //        type: "POST",
+            //        contentType: "application/json; charset=utf-8",
+            //        dataType: "json",
+            //        url: "Crud.aspx/DeleteRecord",
+            //        data: JSON.stringify({ id: this.id }),
+            //    }).
+            //    fail(function (s) {
+            //        alert(s);
+            //    })
+            //    .done(function () {
+            //        var par = $(source).parents('tr');
+            //        par.remove();
+            //    });
+            //});
+
+            $(".delete").click(function () {
+                if (confirm("მონაცემების წაშლა დარწმუნებული ხართ?")) {
+                    var source = this;
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        url: "Crud.aspx/DeleteRecord",
+                        data: JSON.stringify({ id: this.id }),
+                    }).
+                    fail(function (s) {
+                        alert(s);
+                    })
+                    .done(function () {
+                        var par = $(source).parents('tr');
+                        par.remove();
+                    });
+                }
+            });
+        });
+        //function Check(id) {
+        //    var par = $('#' + id).parent().parent();
+        //}
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -19,6 +63,12 @@
                     <asp:BoundField DataField="Car" HeaderText="Car Name"  />
                     <asp:BoundField DataField="CarModel" HeaderText="Car Model" />
                     <asp:BoundField DataField="ProductionYear" HeaderText="ProductionYear"  />
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <a href="#" id="<%# Eval("_id") %>" class="delete">წაშლა</a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    
                     <%--<asp:TemplateField ItemStyle-Width="80px" HeaderText="Edit">    
                                 <ItemTemplate>    
                                      <asp:LinkButton ID="lnkbtn" runat="server"  OnClick="Edit" CommandArgument='<%# Eval("_id") %>'>Edit</asp:LinkButton>      
@@ -35,16 +85,16 @@
                             </asp:TemplateField>  --%>
             <br />
             <asp:DropDownList AppendDataBoundItems="true" DataValueField="_id"  DataTextField="Car" ID="DropDownListCar" runat="server">
-                <asp:ListItem Text="აირჩიეთ მანქანა" Value="-1"></asp:ListItem>
+                <asp:ListItem Text="-- აირჩიეთ მანქანა --" Value="-1"></asp:ListItem>
             </asp:DropDownList>
             <asp:DropDownList AppendDataBoundItems="true" DataValueField="_id" DataTextField="CarModel" ID="DropDownListCarModel" runat="server">
-                <asp:ListItem Text="აირჩიეთ მოდელი" Value="-1"></asp:ListItem>
+                <asp:ListItem Text="-- აირჩიეთ მოდელი --" Value="-1"></asp:ListItem>
             </asp:DropDownList>
             <asp:DropDownList AppendDataBoundItems="true" DataValueField="_id" DataTextField="ProductionYear" ID="DropDownListProductionYear" runat="server">
-                <asp:ListItem Text="აირჩიეთ გამოშვების წელი" Value="-1"></asp:ListItem>
+                <asp:ListItem Text="-- აირჩიეთ გამოშვების წელი --" Value="-1"></asp:ListItem>
             </asp:DropDownList>
             <br /><br />
-            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+            <asp:Button ID="Button1" BorderStyle="None" Width="100px" BackColor="Blue" ForeColor="White" runat="server" OnClick="Button1_Click" Text="დამატება" />
             <br />
             <asp:Label ForeColor="Red" ID="lblErrorMessage" runat="server"></asp:Label>
             <br />

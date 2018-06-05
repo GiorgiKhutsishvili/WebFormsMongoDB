@@ -26,7 +26,9 @@ namespace WebFormsMongoDB
             {
                 {"Car", txtCar.Text.ToString() },
                 {"CarModel", txtCarModel.Text.ToString() },
-                {"ProductionYear", txtProductionYear.Text.ToString() }
+                {"ProductionYear", txtProductionYear.Text.ToString() },
+                {"isDeleted", false }
+
             };
             collection.InsertOneAsync(document);
             //Response.Redirect("Crud.aspx", true);
