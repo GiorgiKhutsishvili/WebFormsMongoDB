@@ -211,9 +211,9 @@ namespace WebFormsMongoDB
 
                 CarsInfo ci = new CarsInfo();
                 ci._id = ObjectId.Parse(id);
-                ci.Car = ci.Car;
-                ci.CarModel = ci.CarModel;
-                ci.ProductionYear = ci.ProductionYear;
+                //ci.Car = ci.Car;
+                //ci.CarModel = ci.CarModel;
+                //ci.ProductionYear = ci.ProductionYear;
                 ci.isDeleted = true;
                 
                 collection.ReplaceOne(filter, ci.ToBsonDocument());
