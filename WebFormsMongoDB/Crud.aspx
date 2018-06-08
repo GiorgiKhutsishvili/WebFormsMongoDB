@@ -42,6 +42,7 @@
                     .done(function () {
                         var par = $(source).parents('tr');
                         par.remove();
+                        //location.href = "Crud.aspx";
                     });
                 }
             });
@@ -63,6 +64,7 @@
                     <asp:BoundField DataField="Car" HeaderText="Car Name"  />
                     <asp:BoundField DataField="CarModel" HeaderText="Car Model" />
                     <asp:BoundField DataField="ProductionYear" HeaderText="ProductionYear"  />
+                    <asp:BoundField DataField="isDeleted" HeaderText="isDeleted" />
                     <asp:TemplateField>
                         <ItemTemplate>
                             <a href="#" id="<%# Eval("_id") %>" class="delete">წაშლა</a>

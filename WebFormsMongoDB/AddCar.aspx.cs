@@ -32,8 +32,8 @@ namespace WebFormsMongoDB
             };
             collection.InsertOneAsync(document);
             //Response.Redirect("Crud.aspx", true);
-            Server.Transfer("Crud.aspx", true);
-            
+            Response.Redirect("Crud.aspx");
+
         }
     }
 }

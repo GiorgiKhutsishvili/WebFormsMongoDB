@@ -197,26 +197,37 @@ namespace WebFormsMongoDB
         {
             try
             {
-                var collection = db.GetCollection<BsonDocument>("cars");
-                var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(id));
+                //var collection = db.GetCollection<CarsInfo>("cars");
+                //var filter = Builders<CarsInfo>.Filter.Eq("_id", ObjectId.Parse(id));
 
+                //var document = collection.Find(new BsonDocument()).ToList();
 
-                //var queryID = Query.EQ("_id", ObjectId.Parse(id));
-                //var entity = collection.FindAsync(queryID);
+                //var carToUpdate = document.Where(x => x._id == ObjectId.Parse(id)).FirstOrDefault();
 
+                //CarsInfo carsinfo = new CarsInfo();
+                //carsinfo._id = ObjectId.Parse(id);
+                //carsinfo.Car = carToUpdate.Car;
+                //carsinfo.CarModel = carToUpdate.CarModel;
+                //carsinfo.ProductionYear = carToUpdate.ProductionYear;
+                //carsinfo.isDeleted = "true";
 
+                //collection.ReplaceOne(filter, carsinfo);
 
+                var collection = db.GetCollection<CarsInfo>("cars");
+                var filter = Builders<CarsInfo>.Filter.Eq("_id", ObjectId.Parse(id));
 
+                var document = collection.Find(new BsonDocument()).ToList();
 
+                var carToUpdate = document.Where(x => x._id == ObjectId.Parse(id)).FirstOrDefault();
 
-                CarsInfo ci = new CarsInfo();
-                ci._id = ObjectId.Parse(id);
-                //ci.Car = ci.Car;
-                //ci.CarModel = ci.CarModel;
-                //ci.ProductionYear = ci.ProductionYear;
-                ci.isDeleted = true;
-                
-                collection.ReplaceOne(filter, ci.ToBsonDocument());
+                CarsInfo carsinfo = new CarsInfo();
+                carsinfo._id = ObjectId.Parse(id);
+                carsinfo.Car = carToUpdate.Car;
+                carsinfo.CarModel = carToUpdate.CarModel;
+                carsinfo.ProductionYear = carToUpdate.ProductionYear;
+                carsinfo.isDeleted = true;
+
+                collection.ReplaceOne(filter, carsinfo);
 
             }
             catch(Exception ex)
