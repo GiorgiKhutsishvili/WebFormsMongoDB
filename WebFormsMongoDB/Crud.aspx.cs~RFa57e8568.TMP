@@ -46,7 +46,7 @@ namespace WebFormsMongoDB
             {
                 if (item.isDeleted == true)
                 {
-                    //GridView1.Rows[0].Visible = false;
+                    GridView1.Rows[0].Visible = false;
                 }
             }
             //if (e.Row.Cells[1].Text == "")

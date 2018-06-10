@@ -42,8 +42,9 @@
                     .done(function () {
                         var par = $(source).parents('tr');
                         par.remove();
+  
                         //location.href = "Crud.aspx";
-                    });
+                    });  
                 }
             });
         });
@@ -78,7 +79,9 @@
                                 </ItemTemplate>    
                             </asp:TemplateField>  --%>
                 </Columns>
+                
             </asp:GridView>
+           
             <%--<asp:TemplateField ItemStyle-Width="80px" HeaderText="Edit">    
                                 <ItemTemplate>    
                                      <asp:LinkButton ID="lnkbtn" runat="server"  OnClick="Edit" CommandArgument='<%# Eval("_id") %>'>Edit</asp:LinkButton>      
