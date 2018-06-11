@@ -21,70 +21,41 @@ namespace WebFormsMongoDB
         protected static IMongoDatabase db = client.GetDatabase("CarsDB");
 
 
-        //protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
-        //{
-        //    if (e.Row.RowType == DataControlRowType.DataRow)
-        //    {
-        //        string name = e.Row.Cells[2].Text;
-        //        Response.Write(name);
-        //    }
-        //}
-
-
-
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
             List<CarsInfo> Cars = new List<CarsInfo>();
             var collection = db.GetCollection<CarsInfo>("cars");
-            var document = collection.Find(new BsonDocument()).ToList();
-
-            var hideDeletedCars = document.Where(x => x._id == x._id).ToList();
-
-            foreach (var item in hideDeletedCars)
-            {
-                if (item.isDeleted == true)
-                {
-                    //GridView1.Rows[0].Visible = false;
-                }
-            }
-            //if (e.Row.Cells[1].Text == "")
-            //    e.Row.Visible = false;
-
-            
-
-            //foreach (var item in hideDeletedCars)
-            //{
-            //    if(item.isDeleted == true)
-            //    {
-            //        Response.Write("haeee");
-            //        //GridView1.Visible = false;
-            //    }
-            //}
+            //var document = collection.Find(new BsonDocument()).ToList();
 
 
-            GridView1.DataSource = document;
+            var selectCars = collection.Find(x => x.isDeleted == false).ToList();
+            //var filter = Builders<CarsInfo>.Filter.Eq(x => x.isDeleted, false);
+            //var result = collection.Find(filter).ToList();
+
+
+            GridView1.DataSource = selectCars;
             GridView1.DataBind();
 
+            //GridView1.DataSource = selectCars;
+            //GridView1.DataBind();
 
             if (!IsPostBack)
             {
-                DropDownListCar.DataSource = document;
+                DropDownListCar.DataSource = selectCars;
                 DropDownListCar.DataBind();
                 //DropDownListCar.Items.Insert(0, new ListItem("-- აირჩიეთ მანქანა --", string.Empty));
             }
 
             if (!IsPostBack)
             {
-                DropDownListCarModel.DataSource = document;
+                DropDownListCarModel.DataSource = selectCars;
                 DropDownListCarModel.DataBind();
                 //DropDownListCarModel.Items.Insert(0, new ListItem("-- აირჩიეთ მოდელი --", string.Empty));
             }
 
             if (!IsPostBack)
             {
-                DropDownListProductionYear.DataSource = document;
+                DropDownListProductionYear.DataSource = selectCars;
                 DropDownListProductionYear.DataBind();
                 //DropDownListProductionYear.Items.Insert(0, new ListItem("-- აირჩიეთ გამოშვების წელი --", string.Empty));
             }
@@ -132,6 +103,7 @@ namespace WebFormsMongoDB
                 carsinfo.CarModel = carToUpdate.CarModel;
                 carsinfo.ProductionYear = carToUpdate.ProductionYear;
                 carsinfo.isDeleted = true;
+                carsinfo.DeletedDate = DateTime.Now;
                 
 
                 collection.ReplaceOne(filter, carsinfo);
